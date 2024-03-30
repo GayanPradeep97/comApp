@@ -67,7 +67,7 @@ class HomePage extends StatelessWidget {
               fontSize: 35, color: Colors.white, fontWeight: FontWeight.w700),
         ),
         Text(
-          "Your TeleCommunication Partner",
+          "Your TeleCommunication Partners",
           textAlign: TextAlign.center,
           style: TextStyle(
               fontSize: 20, color: Colors.white54, fontWeight: FontWeight.w700),
