@@ -19,7 +19,8 @@ class _HomePageState extends State<HomePage> {
   List<String> backgroundImages = [
     "assets/images/dialog_offers.png",
     "assets/images/airtel.png",
-    "assets/images/dialog_offers.png",
+    "assets/images/hutch.png",
+    "assets/images/mobitel.png"
   ];
 
   @override
@@ -68,7 +69,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 homePageHeader(),
                 SizedBox(
-                  height: 100, // Adjust the height as needed
+                  height: 130, // Adjust the height as needed
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: [
@@ -93,11 +94,16 @@ class _HomePageState extends State<HomePage> {
     return Card(
       child: GestureDetector(
         onTap: () {
-          _showImagePopup(context, backgroundImages[_currentIndex]);
+          _showImagePopup(
+              context, backgroundImages[_currentIndex], _currentIndex);
         },
-        child: SizedBox(
+        child: Container(
           width: 350, // Adjust width as needed
           height: 500, // Adjust height as needed
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.0),
+            // color: Colors.white,
+          ),
           child: Stack(
             fit: StackFit.expand,
             children: [
@@ -114,7 +120,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _showImagePopup(BuildContext context, String imagePath) {
+  void _showImagePopup(
+      BuildContext context, String imagePath, int currentIndex) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -133,10 +140,22 @@ class _HomePageState extends State<HomePage> {
               ),
               GestureDetector(
                 onTap: () {
-                  const url =
-                      'https://www.dialog.lk/support/self-help-channel/mydialog-app';
+                  if (currentIndex == 0) {
+                    const url =
+                        'https://www.dialog.lk/support/self-help-channel/mydialog-app';
+                    launch(url);
+                  } else if (currentIndex == 1) {
+                    const url = 'https://www.airtel.lk/category/my-airtel-app/';
+                    launch(url);
+                  } else if (currentIndex == 2) {
+                    const url = 'https://hutch.lk/hutch-self-care/';
+                    launch(url);
+                  } else if (currentIndex == 3) {
+                    const url = 'https://www.mobitel.lk/selfcare-app';
+                    launch(url);
+                  }
+
                   // ignore: deprecated_member_use
-                  launch(url);
                 },
                 child: const Text(
                   'click here',

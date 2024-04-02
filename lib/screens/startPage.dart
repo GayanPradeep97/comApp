@@ -158,7 +158,7 @@ class _PaymentScreenState extends State<StartPage> {
                           builder: (context) => const HomePage()));
                 },
                 child: const Text(
-                  'Start One Time Payment!',
+                  'Start Your Journey!',
                   style: TextStyle(
                     color: Color.fromARGB(
                         255, 255, 255, 255), // Set the text color here

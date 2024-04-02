@@ -10,9 +10,12 @@ class ReloadHistoryScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xff329BFC),
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 23, 8, 233),
         title: const Text(
           "Reload History",
-          style: TextStyle(color: Color(0xff329BFC)),
+          style: TextStyle(
+              color: Color.fromARGB(255, 255, 255, 255),
+              fontWeight: FontWeight.bold),
         ),
         automaticallyImplyLeading: false,
         leading: IconButton(
@@ -21,30 +24,39 @@ class ReloadHistoryScreen extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const HomePage()));
             },
             icon: const Icon(Icons.arrow_back)),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(bottom: 15.0),
-              child: Text(
-                "Your Reload History",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 35,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700),
-              ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset(
+            "assets/images/reload_history.jpg", // Replace with your image path
+            fit: BoxFit.cover,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 15.0),
+                  child: Text(
+                    "Your Reload History",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 35,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700),
+                  ),
+                ),
+                reloadHistoryList(),
+              ],
             ),
-            reloadHistoryList(),
-          ],
-        ),
-      )),
+          )
+        ],
+      ),
     );
   }
 
@@ -91,7 +103,11 @@ class ReloadHistoryScreen extends StatelessWidget {
   Widget reloadHistoryList() {
     return Expanded(
       child: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('reload').snapshots(),
+          // stream: FirebaseFirestore.instance.collection('reload').snapshots(),
+          stream: FirebaseFirestore.instance
+              .collection('reload')
+              .orderBy('date', descending: true)
+              .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(

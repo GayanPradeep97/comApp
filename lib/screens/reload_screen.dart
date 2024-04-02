@@ -38,11 +38,14 @@ class _ReloadScreenState extends State<ReloadScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(156, 50, 27, 175),
+      backgroundColor: const Color.fromARGB(156, 50, 27, 175),
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(156, 50, 27, 175),
         title: const Text(
           "Reload",
-          style: TextStyle(color: Color(0xff329BFC)),
+          style: TextStyle(
+              color: Color.fromARGB(255, 255, 255, 255),
+              fontWeight: FontWeight.bold),
         ),
         automaticallyImplyLeading: false,
         leading: IconButton(
@@ -51,7 +54,9 @@ class _ReloadScreenState extends State<ReloadScreen> {
                   MaterialPageRoute(builder: (context) => const HomePage()));
             },
             icon: const Icon(Icons.arrow_back)),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
+      // Set the icon color here
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -200,7 +205,7 @@ class _ReloadScreenState extends State<ReloadScreen> {
     } else if (widget.name == 'dialog' && !_number.text.startsWith('077')) {
       showErrorSnackBar('Please add dialog phone number');
     } else if (widget.name == 'mobitel' &&
-        (!_number.text.startsWith('071') || !_number.text.startsWith('070'))) {
+        (!_number.text.startsWith('071'))) {
       showErrorSnackBar('Please add mobitel phone number');
     } else if (widget.name == 'hutch' && !_number.text.startsWith('078')) {
       showErrorSnackBar('Please add hutch phone number');
