@@ -1,37 +1,59 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tele_communication_helper/screens/reload_history_screen.dart';
 import 'package:tele_communication_helper/screens/reload_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late Timer _timer;
+  int _currentIndex = 0;
+
+  List<String> backgroundImages = [
+    "assets/images/dialog_offers.png",
+    "assets/images/airtel.png",
+    "assets/images/dialog_offers.png",
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    // Start timer to change images every 10 seconds
+    _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+      setState(() {
+        // Update index to display the next image
+        _currentIndex = (_currentIndex + 1) % backgroundImages.length;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel(); // Cancel the timer when the widget is disposed
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff329BFC),
+      backgroundColor: const Color.fromARGB(156, 158, 38, 202),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [
-                Color(0xff020024),
-                Color(0xff5C0979),
-                Color(0xff00D4FF),
-              ],
-              stops: [0.0, 1.0, 1.0],
-            ),
-          ),
-        ),
+        backgroundColor: const Color.fromRGBO(92, 9, 121, 100),
+        centerTitle: true,
         title: const Text(
           "Home Page",
           style: TextStyle(
-              color: Color.fromARGB(255, 253, 253, 253),
-              fontWeight: FontWeight.bold),
+            color: Color.fromARGB(255, 253, 253, 253),
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
         ),
         automaticallyImplyLeading: false,
       ),
@@ -45,6 +67,18 @@ class HomePage extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 homePageHeader(),
+                SizedBox(
+                  height: 100, // Adjust the height as needed
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      buildCard(), // Call buildCard for each card you want
+                      buildCard(),
+                      buildCard(),
+                      buildCard(),
+                    ],
+                  ),
+                ),
                 providerButtons(context),
                 reloadHistoryButton(context),
               ],
@@ -52,6 +86,79 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildCard() {
+    return Card(
+      child: GestureDetector(
+        onTap: () {
+          _showImagePopup(context, backgroundImages[_currentIndex]);
+        },
+        child: SizedBox(
+          width: 350, // Adjust width as needed
+          height: 500, // Adjust height as needed
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Positioned.fill(
+                child: Image.asset(
+                  backgroundImages[_currentIndex],
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showImagePopup(BuildContext context, String imagePath) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(
+                imagePath,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'Get your offers And Other things', // Replace with your desired text
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              GestureDetector(
+                onTap: () {
+                  const url =
+                      'https://www.dialog.lk/support/self-help-channel/mydialog-app';
+                  // ignore: deprecated_member_use
+                  launch(url);
+                },
+                child: const Text(
+                  'click here',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -85,6 +192,17 @@ class HomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          const Text(
+            "Select your provider for payment",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 20,
+                color: Color.fromARGB(134, 45, 10, 241),
+                fontWeight: FontWeight.w700),
+          ),
+          const SizedBox(
+            height: 20.0,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -94,7 +212,8 @@ class HomePage extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ReloadScreen()));
+                          builder: (context) =>
+                              const ReloadScreen(name: 'dialog')));
                 },
                 child: Container(
                   height: 100.0,
@@ -121,9 +240,11 @@ class HomePage extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ReloadScreen()));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ReloadScreen(name: 'mobitel'),
+                    ),
+                  );
                 },
                 child: Container(
                   height: 100.0,
@@ -158,7 +279,8 @@ class HomePage extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ReloadScreen()));
+                          builder: (context) =>
+                              const ReloadScreen(name: 'hutch')));
                 },
                 child: Container(
                   height: 100.0,
@@ -187,7 +309,8 @@ class HomePage extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ReloadScreen()));
+                          builder: (context) =>
+                              const ReloadScreen(name: 'airtel')));
                 },
                 child: Container(
                   height: 100.0,
@@ -229,23 +352,25 @@ class HomePage extends StatelessWidget {
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(vertical: 5.0),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.transparent),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 3,
-                  blurRadius: 10,
-                  offset: const Offset(0, 5),
-                )
-              ],
-              color: Colors.white),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: Colors.transparent),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 3,
+                blurRadius: 10,
+                offset: const Offset(0, 5),
+              )
+            ],
+            color: Colors.white,
+          ),
           child: const Text(
             'Reload History',
             style: TextStyle(
-                color: Color(0xff329BFC),
-                fontSize: 20.0,
-                fontWeight: FontWeight.w500),
+              color: Color(0xff329BFC),
+              fontSize: 20.0,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
       ),

@@ -172,20 +172,21 @@ class _CreditCardDetailsDialogState extends State<CreditCardDetailsDialog> {
             children: [
               savedCardsDropdown(),
               divider(),
-              cardNumberInputField(_cardNumber),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(child: expireDateInputField(_expireDate)),
-                  const SizedBox(
-                    width: 10.0,
-                  ),
-                  Expanded(child: cvcInputField(_cvcCode))
-                ],
-              ),
-              saveCardcheckBox(),
-              payButton()
+              // cardNumberInputField(_cardNumber),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   crossAxisAlignment: CrossAxisAlignment.center,
+              //   children: [
+              //     // Expanded(
+              //     //   child: expireDateInputField(_expireDate)),
+              //     // const SizedBox(
+              //     //   width: 10.0,
+              //     // ),
+              //     // Expanded(child: cvcInputField(_cvcCode))
+              //   ],
+              // ),
+              // saveCardcheckBox(),
+              // payButton()
             ],
           ),
         ));
@@ -268,167 +269,167 @@ class _CreditCardDetailsDialogState extends State<CreditCardDetailsDialog> {
     );
   }
 
-  Widget cardNumberInputField(controller) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 15.0),
-      child: Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.transparent),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 3,
-                blurRadius: 10,
-                offset: Offset(0, 5),
-              )
-            ],
-            color: Colors.white),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: TextField(
-            controller: controller,
-            maxLength: 16,
-            decoration: InputDecoration(
-                isCollapsed: true,
-                counterText: '',
-                border: InputBorder.none,
-                hintText: 'Card Number',
-                hintStyle: TextStyle(color: Colors.grey.shade500)),
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget cardNumberInputField(controller) {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(bottom: 15.0),
+  //     child: Container(
+  //       alignment: Alignment.center,
+  //       decoration: BoxDecoration(
+  //           borderRadius: BorderRadius.circular(10),
+  //           border: Border.all(color: Colors.transparent),
+  //           boxShadow: [
+  //             BoxShadow(
+  //               color: Colors.grey.withOpacity(0.5),
+  //               spreadRadius: 3,
+  //               blurRadius: 10,
+  //               offset: Offset(0, 5),
+  //             )
+  //           ],
+  //           color: Colors.white),
+  //       child: Padding(
+  //         padding: const EdgeInsets.all(10.0),
+  //         child: TextField(
+  //           controller: controller,
+  //           maxLength: 16,
+  //           decoration: InputDecoration(
+  //               isCollapsed: true,
+  //               counterText: '',
+  //               border: InputBorder.none,
+  //               hintText: 'Card Number',
+  //               hintStyle: TextStyle(color: Colors.grey.shade500)),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  Widget expireDateInputField(controller) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 15.0),
-      child: Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.transparent),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 3,
-                blurRadius: 10,
-                offset: Offset(0, 5),
-              )
-            ],
-            color: Colors.white),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: TextField(
-            controller: controller,
-            maxLength: 5,
-            decoration: InputDecoration(
-                isCollapsed: true,
-                counterText: '',
-                border: InputBorder.none,
-                hintText: 'Expire (MM/YY)',
-                hintStyle: TextStyle(color: Colors.grey.shade500)),
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget expireDateInputField(controller) {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(bottom: 15.0),
+  //     child: Container(
+  //       alignment: Alignment.center,
+  //       decoration: BoxDecoration(
+  //           borderRadius: BorderRadius.circular(10),
+  //           border: Border.all(color: Colors.transparent),
+  //           boxShadow: [
+  //             BoxShadow(
+  //               color: Colors.grey.withOpacity(0.5),
+  //               spreadRadius: 3,
+  //               blurRadius: 10,
+  //               offset: Offset(0, 5),
+  //             )
+  //           ],
+  //           color: Colors.white),
+  //       child: Padding(
+  //         padding: const EdgeInsets.all(10.0),
+  //         child: TextField(
+  //           controller: controller,
+  //           maxLength: 5,
+  //           decoration: InputDecoration(
+  //               isCollapsed: true,
+  //               counterText: '',
+  //               border: InputBorder.none,
+  //               hintText: 'Expire (MM/YY)',
+  //               hintStyle: TextStyle(color: Colors.grey.shade500)),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  Widget cvcInputField(controller) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 15.0),
-      child: Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.transparent),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 3,
-                blurRadius: 10,
-                offset: Offset(0, 5),
-              )
-            ],
-            color: Colors.white),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: TextField(
-            controller: controller,
-            maxLength: 3,
-            decoration: InputDecoration(
-                isCollapsed: true,
-                counterText: '',
-                border: InputBorder.none,
-                hintText: 'CVC',
-                hintStyle: TextStyle(color: Colors.grey.shade500)),
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget cvcInputField(controller) {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(bottom: 15.0),
+  //     child: Container(
+  //       alignment: Alignment.center,
+  //       decoration: BoxDecoration(
+  //           borderRadius: BorderRadius.circular(10),
+  //           border: Border.all(color: Colors.transparent),
+  //           boxShadow: [
+  //             BoxShadow(
+  //               color: Colors.grey.withOpacity(0.5),
+  //               spreadRadius: 3,
+  //               blurRadius: 10,
+  //               offset: Offset(0, 5),
+  //             )
+  //           ],
+  //           color: Colors.white),
+  //       child: Padding(
+  //         padding: const EdgeInsets.all(10.0),
+  //         child: TextField(
+  //           controller: controller,
+  //           maxLength: 3,
+  //           decoration: InputDecoration(
+  //               isCollapsed: true,
+  //               counterText: '',
+  //               border: InputBorder.none,
+  //               hintText: 'CVC',
+  //               hintStyle: TextStyle(color: Colors.grey.shade500)),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  Widget payButton() {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 15.0),
-      child: GestureDetector(
-        onTap: () {
-          validateUserInput();
-        },
-        child: Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(vertical: 5.0),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.transparent),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 3,
-                  blurRadius: 10,
-                  offset: const Offset(0, 5),
-                )
-              ],
-              color: const Color(0xff329BFC)),
-          child: const Text(
-            'Pay',
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 20.0,
-                fontWeight: FontWeight.w500),
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget payButton() {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(bottom: 15.0),
+  //     child: GestureDetector(
+  //       onTap: () {
+  //         validateUserInput();
+  //       },
+  //       child: Container(
+  //         alignment: Alignment.center,
+  //         padding: const EdgeInsets.symmetric(vertical: 5.0),
+  //         decoration: BoxDecoration(
+  //             borderRadius: BorderRadius.circular(10),
+  //             border: Border.all(color: Colors.transparent),
+  //             boxShadow: [
+  //               BoxShadow(
+  //                 color: Colors.grey.withOpacity(0.5),
+  //                 spreadRadius: 3,
+  //                 blurRadius: 10,
+  //                 offset: const Offset(0, 5),
+  //               )
+  //             ],
+  //             color: const Color(0xff329BFC)),
+  //         child: const Text(
+  //           'Pay',
+  //           style: TextStyle(
+  //               color: Colors.white,
+  //               fontSize: 20.0,
+  //               fontWeight: FontWeight.w500),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  Widget saveCardcheckBox() {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 15.0),
-      child: Visibility(
-        visible: !isSavedCard,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Checkbox(
-                value: doSave,
-                onChanged: (newValue) {
-                  setState(() {
-                    doSave = newValue!;
-                  });
-                }),
-            Text(
-              'Save card details for future payments',
-              style: TextStyle(color: Colors.grey.shade500),
-            )
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget saveCardcheckBox() {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(bottom: 15.0),
+  //     child: Visibility(
+  //       visible: !isSavedCard,
+  //       child: Row(
+  //         mainAxisAlignment: MainAxisAlignment.start,
+  //         crossAxisAlignment: CrossAxisAlignment.center,
+  //         children: [
+  //           Checkbox(
+  //               value: doSave,
+  //               onChanged: (newValue) {
+  //                 setState(() {
+  //                   doSave = newValue!;
+  //                 });
+  //               }),
+  //           Text(
+  //             'Save card details for future payments',
+  //             style: TextStyle(color: Colors.grey.shade500),
+  //           )
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   void showErrorSnackBar(message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(

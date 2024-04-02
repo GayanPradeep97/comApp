@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:tele_communication_helper/screens/home_screen.dart';
+import 'package:tele_communication_helper/screens/startPage.dart';
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class _SplashscreenState extends State<Splashscreen> {
         children: [
           // Background Image
           Image.asset(
-            "assets/images/spalshScreen.png", // Replace with your image path
+            "assets/images/background2.png", // Replace with your image path
             fit: BoxFit.cover,
           ),
           // Content
@@ -48,7 +49,8 @@ class _SplashscreenState extends State<Splashscreen> {
                           height: 10.0,
                         ),
                         Text(
-                          "Welcome",
+                          "Welcome to Com Helper",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 35,
                               color: Colors.white,
@@ -80,7 +82,7 @@ class _SplashscreenState extends State<Splashscreen> {
   void gotoHomePage(BuildContext context) {
     Future.delayed(const Duration(seconds: 10), () {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const HomePage()));
+          context, MaterialPageRoute(builder: (context) => const StartPage()));
     });
   }
 }
