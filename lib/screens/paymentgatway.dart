@@ -248,22 +248,52 @@ class _PaymentScreenState extends State<PaymentScreen> {
     return Scaffold(
       backgroundColor: const Color(0xff329BFC),
       appBar: AppBar(
-        title: const Text('Create your payment'),
+        backgroundColor: const Color.fromARGB(255, 20, 45, 160),
+        title: const Text(
+          'Create your payment',
+          style: TextStyle(
+              color: Color.fromARGB(255, 255, 255, 255),
+              fontWeight: FontWeight.bold),
+        ),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Stack(
         fit: StackFit.expand,
         children: [
           Image.asset(
-            "assets/images/payemntScreen.png", // Replace with your image path
+            "assets/images/payemant_background.png", // Replace with your image path
             fit: BoxFit.cover,
           ),
           Positioned(
+              top: MediaQuery.of(context).size.height *
+                  0.55, // Adjust the vertical position
+              left: 10.0,
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Are you ready for',
+                    style: TextStyle(
+                      fontSize: 32.00,
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
+                  ),
+                  Text(
+                    'your payment?',
+                    style: TextStyle(
+                      fontSize: 32.00,
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
+                  ),
+                ],
+              )),
+          Positioned(
             top: MediaQuery.of(context).size.height *
                 0.7, // Adjust the vertical position
-            left: 110.0,
+            left: 50.0,
             // bottom: 10.00, // Adjust the horizontal position
             child: Container(
-              width: 210, // Set the width of the container
+              width: 300, // Set the width of the container
               height: 70,
               decoration: BoxDecoration(
                 color: const Color.fromARGB(
@@ -281,7 +311,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     color: Color.fromARGB(
                         255, 255, 255, 255), // Set the text color here
                     fontWeight: FontWeight.bold,
-                    fontSize: 16.0, // Set the font weight here
+                    fontSize: 22.0, // Set the font weight here
                   ),
                 ),
               ),
