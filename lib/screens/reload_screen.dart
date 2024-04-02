@@ -1,11 +1,17 @@
 //import 'package:credit_card_scanner/credit_card_scanner.dart';
+import 'dart:math';
+
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+// ignore: unused_import
 import 'package:tele_communication_helper/dialogs/credit_card_details_dialog.dart';
 import 'package:tele_communication_helper/screens/home_screen.dart';
+import 'package:tele_communication_helper/screens/paymentgatway.dart';
+// import 'package:flutter_confetti/flutter_confetti.dart';
 
 class ReloadScreen extends StatefulWidget {
-  const ReloadScreen({super.key});
-
+  const ReloadScreen({super.key, required this.name});
+  final String name;
   @override
   State<ReloadScreen> createState() => _ReloadScreenState();
 }
@@ -13,11 +19,26 @@ class ReloadScreen extends StatefulWidget {
 class _ReloadScreenState extends State<ReloadScreen> {
   final TextEditingController _number = TextEditingController();
   final TextEditingController _amount = TextEditingController();
+  late ConfettiController _confettiController;
+
+  @override
+  void initState() {
+    super.initState();
+    _confettiController =
+        ConfettiController(duration: const Duration(seconds: 6));
+    _confettiController.play(); // Play confetti animation when the page loads
+  }
+
+  @override
+  void dispose() {
+    _confettiController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff329BFC),
+      backgroundColor: Color.fromARGB(156, 50, 27, 175),
       appBar: AppBar(
         title: const Text(
           "Reload",
@@ -39,16 +60,27 @@ class _ReloadScreenState extends State<ReloadScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.max,
           children: [
-            const Padding(
-              padding: EdgeInsets.only(bottom: 15.0),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 15.0),
               child: Text(
-                "Enter your connection details below",
+                'welcome to ${widget.name}',
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 35,
                     color: Colors.white,
                     fontWeight: FontWeight.w700),
               ),
+            ),
+            // const Padding(
+            //   padding: EdgeInsets.only(bottom: 5.0),
+            const Text(
+              "Enter your connection details below",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700),
+              // ),
             ),
             Expanded(
               child: Column(
@@ -138,7 +170,19 @@ class _ReloadScreenState extends State<ReloadScreen> {
                       ))
                 ],
               ),
-            )
+            ),
+
+            ConfettiWidget(
+              confettiController: _confettiController,
+              blastDirectionality: BlastDirectionality.explosive,
+              shouldLoop: false,
+              maxBlastForce: 70,
+              minBlastForce: 10,
+              emissionFrequency: 0.09,
+              numberOfParticles: 10,
+              gravity: 0.05,
+              blastDirection: 3.14,
+            ),
           ],
         ),
       )),
@@ -153,6 +197,15 @@ class _ReloadScreenState extends State<ReloadScreen> {
       showErrorSnackBar('Please enter a valid phone number');
     } else if (!RegExp(r'^[0-9]+$').hasMatch(_amount.text)) {
       showErrorSnackBar('Please enter a valid amount');
+    } else if (widget.name == 'dialog' && !_number.text.startsWith('077')) {
+      showErrorSnackBar('Please add dialog phone number');
+    } else if (widget.name == 'mobitel' &&
+        (!_number.text.startsWith('071') || !_number.text.startsWith('070'))) {
+      showErrorSnackBar('Please add mobitel phone number');
+    } else if (widget.name == 'hutch' && !_number.text.startsWith('078')) {
+      showErrorSnackBar('Please add hutch phone number');
+    } else if (widget.name == 'airtel' && !_number.text.startsWith('075')) {
+      showErrorSnackBar('Please add airtel phone number');
     } else {
       scanCard();
     }
@@ -169,15 +222,23 @@ class _ReloadScreenState extends State<ReloadScreen> {
   }
 
   void scanCard() {
-    showDialog(
-        context: context,
-        builder: ((context) => CreditCardDetailsDialog(
-              phoneNumer: _number.text,
-              amount: double.tryParse(_amount.text) ?? 00.00,
-            )));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PaymentScreen(
+                  phone: _number.text,
+                  amount: double.tryParse(_amount.text) ?? 0.0,
+                )));
 
-    // var cardDetails = await CardScanner.scanCard();
-
-    // print(cardDetails);
+    CreditCardDetailsDialog(
+      phoneNumer: _number.text,
+      amount: double.tryParse(_amount.text) ?? 00.00,
+    );
+    // showDialog(
+    //     context: context,
+    //     builder: ((context) => CreditCardDetailsDialog(
+    //           phoneNumer: _number.text,
+    //           amount: double.tryParse(_amount.text) ?? 00.00,
+    //         )));
   }
 }
