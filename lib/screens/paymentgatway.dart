@@ -1,5 +1,5 @@
 // ignore: unused_import
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -127,6 +127,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   void saveReloadDetails() async {
+    // ignore: duplicate_ignore
     try {
       Reload reload = Reload(
           // cardNumber: _cardNumber.text,
@@ -145,9 +146,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
           .doc();
       await docRef.set(reload);
 
-      // ignore: use_build_context_synchronously
-      Navigator.pop(context);
-      Navigator.pop(context);
+      // Navigator.pop(context);
+      // Navigator.pop(context);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const HomePage()));
 

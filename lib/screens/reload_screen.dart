@@ -1,9 +1,9 @@
 //import 'package:credit_card_scanner/credit_card_scanner.dart';
-import 'dart:math';
+// ignore_for_file: unused_import
 
+import 'dart:math';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
-// ignore: unused_import
 import 'package:tele_communication_helper/dialogs/credit_card_details_dialog.dart';
 import 'package:tele_communication_helper/screens/home_screen.dart';
 import 'package:tele_communication_helper/screens/paymentgatway.dart';
@@ -204,8 +204,7 @@ class _ReloadScreenState extends State<ReloadScreen> {
       showErrorSnackBar('Please enter a valid amount');
     } else if (widget.name == 'dialog' && !_number.text.startsWith('077')) {
       showErrorSnackBar('Please add dialog phone number');
-    } else if (widget.name == 'mobitel' &&
-        (!_number.text.startsWith('071'))) {
+    } else if (widget.name == 'mobitel' && (!_number.text.startsWith('071'))) {
       showErrorSnackBar('Please add mobitel phone number');
     } else if (widget.name == 'hutch' && !_number.text.startsWith('078')) {
       showErrorSnackBar('Please add hutch phone number');

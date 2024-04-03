@@ -1,5 +1,4 @@
-// ignore: unused_import
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: unused_import, unused_field
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,6 @@ import 'package:payhere_mobilesdk_flutter/payhere_mobilesdk_flutter.dart';
 import 'package:tele_communication_helper/models/credit_card.dart';
 import 'package:tele_communication_helper/models/reload.dart';
 import 'package:tele_communication_helper/screens/home_screen.dart';
-// ignore: unused_import
 import 'package:tele_communication_helper/screens/reload_screen.dart';
 
 class StartPage extends StatefulWidget {
@@ -48,6 +46,7 @@ class _PaymentScreenState extends State<StartPage> {
         creditCards.add(card);
       }
     } catch (e) {
+      // ignore: avoid_print
       print('Error fetching credit cards: $e');
     }
 
@@ -139,7 +138,7 @@ class _PaymentScreenState extends State<StartPage> {
           Positioned(
             top: MediaQuery.of(context).size.height *
                 0.7, // Adjust the vertical position
-            left: 110.0,
+            left: 95.0,
             // bottom: 10.00, // Adjust the horizontal position
             child: Container(
               width: 210, // Set the width of the container
