@@ -287,36 +287,46 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   ),
                 ],
               )),
-          Positioned(
-            top: MediaQuery.of(context).size.height *
-                0.7, // Adjust the vertical position
-            left: 50.0,
-            // bottom: 10.00, // Adjust the horizontal position
-            child: Container(
-              width: 300, // Set the width of the container
-              height: 70,
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(
-                    255, 6, 30, 240), // Set the background color here
-                borderRadius: BorderRadius.circular(10.0),
-                // Optional: Add border radius
-              ),
-              child: TextButton(
-                onPressed: () {
-                  startOneTimePayment(context, widget.phone, widget.amount);
-                },
-                child: const Text(
-                  'Start One Time Payment!',
-                  style: TextStyle(
-                    color: Color.fromARGB(
-                        255, 255, 255, 255), // Set the text color here
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22.0, // Set the font weight here
+          Center(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                Container(
+                  width: 300, // Set the width of the container
+                  height: 70,
+                  // padding: const EdgeInsets.only(left: 20.00, right: 30.00),
+                  margin: const EdgeInsets.only(
+                      left: 20.00, right: 20.00, bottom: 40.00),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(
+                        255, 6, 30, 240), // Set the background color here
+                    borderRadius: BorderRadius.circular(10.0),
+                    // Optional: Add border radius
+                  ),
+
+                  child: TextButton(
+                    onPressed: () {
+                      startOneTimePayment(context, widget.phone, widget.amount);
+                    },
+                    child: const Text(
+                      'Start One Time Payment!',
+                      style: TextStyle(
+                        color: Color.fromARGB(
+                            255, 255, 255, 255), // Set the text color here
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22.0, // Set the font weight here
+                      ),
+                    ),
                   ),
                 ),
+              ])
+              // top: MediaQuery.of(context).size.height *
+              //     0.7, // Adjust the vertical position
+              // left: 50.0,
+              // bottom: 10.00, // Adjust the horizontal position
+
               ),
-            ),
-          ),
         ],
       ),
     );

@@ -60,28 +60,60 @@ class _HomePageState extends State<HomePage> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(5.0),
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.max,
               children: [
                 homePageHeader(),
-                SizedBox(
-                  height: 130, // Adjust the height as needed
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      buildCard(), // Call buildCard for each card you want
-                      buildCard(),
-                      buildCard(),
-                      buildCard(),
+                Container(
+                  padding: const EdgeInsets.only(left: 10.00, right: 10.00),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    // color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 10,
+                        offset: const Offset(0, 5),
+                      )
                     ],
+                  ),
+                  child: SizedBox(
+                    height: 130,
+                    // Adjust the height as needed
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      // padding: const EdgeInsets.all(5.0),
+                      children: [
+                        buildCard(), // Call buildCard for each card you want
+                        buildCard(),
+                        buildCard(),
+                        buildCard(),
+                      ],
+                    ),
                   ),
                 ),
                 providerButtons(context),
-                reloadHistoryButton(context),
+                Container(
+                  padding: const EdgeInsets.only(left: 20.00, right: 20.00),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    // color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 10,
+                        offset: const Offset(0, 5),
+                      )
+                    ],
+                  ),
+                  child: reloadHistoryButton(context),
+                ),
               ],
             ),
           ),
@@ -99,7 +131,8 @@ class _HomePageState extends State<HomePage> {
         },
         child: Container(
           width: 350, // Adjust width as needed
-          height: 500, // Adjust height as needed
+          height: 500,
+          // padding: const EdgeInsets.all(5.0), // Adjust height as needed
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.0),
             // color: Colors.white,
@@ -216,7 +249,7 @@ class _HomePageState extends State<HomePage> {
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 20,
-                color: Color.fromARGB(134, 45, 10, 241),
+                color: Color.fromARGB(133, 61, 247, 37),
                 fontWeight: FontWeight.w700),
           ),
           const SizedBox(
@@ -254,7 +287,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               const SizedBox(
-                width: 30.0,
+                width: 10.0,
               ),
               GestureDetector(
                 onTap: () {
@@ -287,7 +320,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           const SizedBox(
-            height: 50.0,
+            height: 30.0,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -321,7 +354,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               const SizedBox(
-                width: 30.0,
+                width: 10.0,
               ),
               GestureDetector(
                 onTap: () {
