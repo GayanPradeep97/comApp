@@ -58,7 +58,10 @@ class _ReloadScreenState extends State<ReloadScreen> {
       ),
       // Set the icon color here
       body: SafeArea(
-          child: Padding(
+          child: SingleChildScrollView(
+            child: Container(
+               height: MediaQuery.of(context).size.height,
+                         child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -190,6 +193,9 @@ class _ReloadScreenState extends State<ReloadScreen> {
             ),
           ],
         ),
+      )
+             )
+   
       )),
     );
   }

@@ -10,7 +10,7 @@ class ReloadHistoryScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xff329BFC),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 23, 8, 233),
+        backgroundColor: const Color.fromARGB(255, 23, 8, 233),
         title: const Text(
           "Reload History",
           style: TextStyle(
