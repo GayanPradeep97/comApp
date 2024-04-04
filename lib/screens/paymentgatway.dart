@@ -117,7 +117,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
     };
 
     PayHere.startPayment(paymentObject, (paymentId) {
-      // showAlert(context, "Payment Success!", "Payment Id: $paymentId");
+      // showSuccessSnackBar('Realod Successfull');
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => const HomePage()));
       saveReloadDetails();
     }, (error) {
       showAlert(context, "Payment Failed", error);
@@ -148,10 +150,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
       // Navigator.pop(context);
       // Navigator.pop(context);
+      showSuccessSnackBar('Realod Successfull');
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const HomePage()));
-
-      showSuccessSnackBar('Realod Successfull');
     } catch (e) {
       Navigator.pop(context);
       showErrorSnackBar(e.toString());

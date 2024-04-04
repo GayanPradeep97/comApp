@@ -2,9 +2,12 @@
 // ignore_for_file: unused_import
 
 import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:tele_communication_helper/dialogs/credit_card_details_dialog.dart';
+import 'package:tele_communication_helper/models/reload.dart';
 import 'package:tele_communication_helper/screens/home_screen.dart';
 import 'package:tele_communication_helper/screens/paymentgatway.dart';
 // import 'package:flutter_confetti/flutter_confetti.dart';
@@ -20,6 +23,7 @@ class _ReloadScreenState extends State<ReloadScreen> {
   final TextEditingController _number = TextEditingController();
   final TextEditingController _amount = TextEditingController();
   late ConfettiController _confettiController;
+  final FirebaseFirestore db = FirebaseFirestore.instance;
 
   @override
   void initState() {
@@ -59,145 +63,177 @@ class _ReloadScreenState extends State<ReloadScreen> {
       // Set the icon color here
       body: SafeArea(
           child: SingleChildScrollView(
-            child: Container(
-               height: MediaQuery.of(context).size.height,
-                         child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 15.0),
-              child: Text(
-                'welcome to ${widget.name}',
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    fontSize: 35,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700),
-              ),
-            ),
-            // const Padding(
-            //   padding: EdgeInsets.only(bottom: 5.0),
-            const Text(
-              "Enter your connection details below",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700),
-              // ),
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 15.0),
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(5.0),
-                      height: 60.0,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          border: Border.all(color: Colors.transparent),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 3,
-                              blurRadius: 10,
-                              offset: const Offset(0, 5),
-                            )
-                          ],
-                          color: Colors.white),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: TextField(
-                          controller: _number,
-                          maxLength: 10,
-                          decoration: InputDecoration(
-                              isCollapsed: true,
-                              counterText: '',
-                              border: InputBorder.none,
-                              hintText: 'Enter phone number',
-                              hintStyle:
-                                  TextStyle(color: Colors.grey.shade500)),
+              child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 15.0),
+                          child: Text(
+                            'welcome to ${widget.name}',
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                fontSize: 35,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 15.0),
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(5.0),
-                      height: 60.0,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          border: Border.all(color: Colors.transparent),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 3,
-                              blurRadius: 10,
-                              offset: const Offset(0, 5),
-                            )
-                          ],
-                          color: Colors.white),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: TextField(
-                          controller: _amount,
-                          decoration: InputDecoration.collapsed(
-                              border: InputBorder.none,
-                              hintText: 'Enter reload amount',
-                              hintStyle:
-                                  TextStyle(color: Colors.grey.shade500)),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 50.0,
-                  ),
-                  ElevatedButton(
-                      onPressed: () {
-                        validateUserInput();
-                      },
-                      child: const Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Text(
-                          "Submit",
+                        // const Padding(
+                        //   padding: EdgeInsets.only(bottom: 5.0),
+                        const Text(
+                          "Enter your connection details below",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 25.0, color: Color(0xff329BFC)),
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700),
+                          // ),
                         ),
-                      ))
-                ],
-              ),
-            ),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 15.0),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.all(5.0),
+                                  height: 60.0,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      border:
+                                          Border.all(color: Colors.transparent),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 3,
+                                          blurRadius: 10,
+                                          offset: const Offset(0, 5),
+                                        )
+                                      ],
+                                      color: Colors.white),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: TextField(
+                                      controller: _number,
+                                      maxLength: 10,
+                                      decoration: InputDecoration(
+                                          isCollapsed: true,
+                                          counterText: '',
+                                          border: InputBorder.none,
+                                          hintText: 'Enter phone number',
+                                          hintStyle: TextStyle(
+                                              color: Colors.grey.shade500)),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 15.0),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.all(5.0),
+                                  height: 60.0,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      border:
+                                          Border.all(color: Colors.transparent),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 3,
+                                          blurRadius: 10,
+                                          offset: const Offset(0, 5),
+                                        )
+                                      ],
+                                      color: Colors.white),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: TextField(
+                                      controller: _amount,
+                                      decoration: InputDecoration.collapsed(
+                                          border: InputBorder.none,
+                                          hintText: 'Enter reload amount',
+                                          hintStyle: TextStyle(
+                                              color: Colors.grey.shade500)),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 50.0,
+                              ),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    validateUserInput();
+                                  },
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(10.0),
+                                    child: Text(
+                                      "Submit",
+                                      style: TextStyle(
+                                          fontSize: 25.0,
+                                          color: Color(0xff329BFC)),
+                                    ),
+                                  ))
+                            ],
+                          ),
+                        ),
 
-            ConfettiWidget(
-              confettiController: _confettiController,
-              blastDirectionality: BlastDirectionality.explosive,
-              shouldLoop: false,
-              maxBlastForce: 70,
-              minBlastForce: 10,
-              emissionFrequency: 0.09,
-              numberOfParticles: 10,
-              gravity: 0.05,
-              blastDirection: 3.14,
-            ),
-          ],
-        ),
-      )
-             )
-   
-      )),
+                        ConfettiWidget(
+                          confettiController: _confettiController,
+                          blastDirectionality: BlastDirectionality.explosive,
+                          shouldLoop: false,
+                          maxBlastForce: 70,
+                          minBlastForce: 10,
+                          emissionFrequency: 0.09,
+                          numberOfParticles: 10,
+                          gravity: 0.05,
+                          blastDirection: 3.14,
+                        ),
+                      ],
+                    ),
+                  )))),
     );
+  }
+
+  void saveReloadDetails() async {
+    // ignore: duplicate_ignore
+    try {
+      Reload reload = Reload(
+          // cardNumber: _cardNumber.text,
+          // expireDate: _expireDate.text,
+          // cvc: _cvcCode.text,
+          phoneNumber: _number.text,
+          amount: double.parse(_amount.text),
+          date: DateFormat('yyyy-MM-dd hh-mm a').format(DateTime.now()));
+
+      final docRef = db
+          .collection('reload')
+          .withConverter(
+            fromFirestore: Reload.fromFirestore,
+            toFirestore: (Reload reload, options) => reload.toFirestore(),
+          )
+          .doc();
+      await docRef.set(reload);
+
+      // Navigator.pop(context);
+      // Navigator.pop(context);
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => const HomePage()));
+
+      // showSuccessSnackBar('Realod Successfull');
+    } catch (e) {
+      // Navigator.pop(context);
+      // showErrorSnackBar(e.toString());
+    }
   }
 
   void validateUserInput() {
@@ -232,6 +268,7 @@ class _ReloadScreenState extends State<ReloadScreen> {
   }
 
   void scanCard() {
+    // saveReloadDetails();
     Navigator.push(
         context,
         MaterialPageRoute(
